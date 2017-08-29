@@ -2,6 +2,8 @@ package NMEA_0183_Parsing;
 
 
 public class eNum_GPS_Satellites_Info {
+
+
     public enum eNUM_GPS_info {
         GPS_13("43","Rb","IIR",""),
         GPS_11("43","Rb","IIR",""),
@@ -34,13 +36,31 @@ public class eNum_GPS_Satellites_Info {
         GPS_26("43","Rb","IIR",""),
         GPS_08("43","Rb","IIR",""),
         GPS_10("43","Rb","IIR",""),
-        GPS_32("43","Rb","IIR",""),;
+        GPS_32("43","Rb","IIR","");
 
-        eNUM_GPS_info(String s, String rb, String iir, String s1) {
+        private final String svn;
+        private final String clock;
+        private final String block;
+        private final String launchDate;
+
+        public String getSvn() {
+            return svn;
         }
-    };
+        public String getClock() {
+            return clock;
+        }
+        public String getBlock() {
+            return block;
+        }
+        public String getLaunchDate() {
+            return launchDate;
+        }
+        eNUM_GPS_info(String svn, String clock, String block, String launchDate) {
+            this.svn = svn;
+            this.clock = clock;
+            this.block = block;
+            this.launchDate = launchDate;
 
-
-
-
+        }
+    }
 }
