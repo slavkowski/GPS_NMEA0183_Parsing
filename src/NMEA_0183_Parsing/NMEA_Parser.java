@@ -160,10 +160,7 @@ public class NMEA_Parser {
                 e.printStackTrace();
             }
 
-
         }
-
-
 
     }
 
@@ -205,19 +202,7 @@ public class NMEA_Parser {
 
 //*********************************************************************************************************************
 
-//                    System.out.println(i + time + " UTC * " + " Lat: " + lat + axisLat + " Lon: " + lon + axisLon +
-//                            " * GPS status: " + fixQuality + " * Satelites being tracked: " + numberOfSateliteIsBeingTracked +
-//                            " * PDOP: " + PDOP + " * VDOP: " + VDOP +
-//                            " * HDOP: " + HDOP + " * Altitude: " + altitude + " * Height of geoid above WGS84 elipsoid: " + geoid);
 
-                    System.out.println(i + time + " UTC * " + " Lat: " + lat + axisLat + " Lon: " + lon + axisLon +
-                            " * GPS status: " + fixQuality + " * Satelites being tracked: " + numberOfSateliteIsBeingTracked +
-                            " * PDOP: " + PDOP + " * VDOP: " + VDOP +
-                            " * HDOP: " + HDOP + " * Altitude: " + altitude + " * Height of geoid above WGS84 elipsoid: " + geoid);
-
-//                System.out.println(line);
-//
-//                System.out.println(NMEA_Utilities.checkSum(line));
                 }
             }
 //            *********************************************************************************************************
@@ -234,49 +219,6 @@ public class NMEA_Parser {
         }
 
 
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private void parseGGA(String line) {
-       String aLine[] = line.split(",");
-       time = aLine[1];
-       lat = aLine[2];
-       axisLat = aLine[3];
-       lon = aLine[4];
-       axisLon = aLine[5];
-       switch (aLine[6]){
-           case "0":
-               fixQuality = "invalid";
-               break;
-           case "1":
-               fixQuality = "GPS fix";
-               break;
-           case "2":
-               fixQuality = "DGPS fix";
-               break;
-           default:
-               fixQuality ="unknown";
-               break;
-       }
-       numberOfSateliteIsBeingTracked = aLine[7];
-       HDOP = aLine[8];
-       altitude = aLine[9];
-       geoid = aLine[11];
     }
 
 
