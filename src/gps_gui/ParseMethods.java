@@ -1,4 +1,4 @@
-package NMEA_0183_Parsing;
+package gps_gui;
 
 
 import java.util.ArrayList;
@@ -6,15 +6,11 @@ import java.util.ArrayList;
 public class ParseMethods {
 
 
-    public static GeoData parseGSA(String line) {
-        GeoData gdGSA = new GeoData();
-        ArrayList<String> arrayWithDataFields = NMEA_Utilities.splitRecord(line);
 
-        gdGSA.setPDOP(arrayWithDataFields.get(15));
-        gdGSA.setHDOP(arrayWithDataFields.get(16));
-        gdGSA.setVDOP(arrayWithDataFields.get(17));
-        return gdGSA;
-    }
+
+
+
+
 
     public static GeoData parseGGA(String line) {
         GeoData gdGGA = new GeoData();

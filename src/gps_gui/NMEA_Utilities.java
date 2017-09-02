@@ -1,4 +1,4 @@
-package NMEA_0183_Parsing;
+package gps_gui;
 
 import java.util.ArrayList;
 

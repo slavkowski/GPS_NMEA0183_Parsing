@@ -1,5 +1,7 @@
-package NMEA_0183_Parsing;
+package gps_gui;
 
+
+import java.util.ArrayList;
 
 public class GeoData {
     private String lat;
@@ -17,6 +19,29 @@ public class GeoData {
 
     public GeoData() {
     }
+
+
+    public void GSA(String line) {
+        ArrayList<String> arrayWithDataFields = NMEA_Utilities.splitRecord(line);
+        PDOP = arrayWithDataFields.get(15);
+        HDOP = arrayWithDataFields.get(16);
+        VDOP = arrayWithDataFields.get(17);
+    }
+    public void GGA(String line){
+        ArrayList<String> arrayWithDataFields = NMEA_Utilities.splitRecord(line);
+        time = arrayWithDataFields.get(1);
+    }
+
+
+
+
+
+
+
+
+
+
+
     public String getLat() {
         return lat;
     }

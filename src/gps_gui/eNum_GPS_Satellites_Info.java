@@ -1,4 +1,4 @@
-package NMEA_0183_Parsing;
+package gps_gui;
 
 
 public class eNum_GPS_Satellites_Info {
