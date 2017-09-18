@@ -8,7 +8,7 @@ public class GeoData {
     private String lon;
     private String axisLat;
     private String axisLon;
-    private String time;
+    private String time = "-1";
     private String fixQuality;
     private String numberOfSatelliteIsBeingTracked;
     private String PDOP;
@@ -16,6 +16,7 @@ public class GeoData {
     private String VDOP;
     private String altitude;
     private String geoid;
+
 
     public GeoData() {
     }
@@ -30,6 +31,29 @@ public class GeoData {
     public void GGA(String line){
         ArrayList<String> arrayWithDataFields = NMEA_Utilities.splitRecord(line);
         time = arrayWithDataFields.get(1);
+
+        lat = arrayWithDataFields.get(2);
+        axisLat = arrayWithDataFields.get(3);
+        lon = arrayWithDataFields.get(4);
+        axisLon = arrayWithDataFields.get(5);
+        switch (arrayWithDataFields.get(6)){
+            case "0":
+                fixQuality = "invalid";
+                break;
+            case "1":
+                fixQuality = "GPS fix";
+                break;
+            case "2":
+                fixQuality = "DGPS fix";
+                break;
+            default:
+                fixQuality = "unknown";
+                break;
+        }
+        numberOfSatelliteIsBeingTracked = arrayWithDataFields.get(7);
+        HDOP = arrayWithDataFields.get(8);
+        altitude = arrayWithDataFields.get(9);
+        geoid = arrayWithDataFields.get(11);
     }
 
 
@@ -46,65 +70,48 @@ public class GeoData {
         return lat;
     }
 
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
+
 
     public String getLon() {
         return lon;
     }
 
-    public void setLon(String lon) {
-        this.lon = lon;
-    }
 
     public String getAxisLat() {
         return axisLat;
     }
 
-    public void setAxisLat(String axisLat) {
-        this.axisLat = axisLat;
-    }
+
 
     public String getAxisLon() {
         return axisLon;
     }
 
-    public void setAxisLon(String axisLon) {
-        this.axisLon = axisLon;
-    }
+
 
     public String getTime() {
         return time;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
+
 
     public String getFixQuality() {
         return fixQuality;
     }
 
-    public void setFixQuality(String fixQuality) {
-        this.fixQuality = fixQuality;
-    }
+
 
     public String getNumberOfSateliteIsBeingTracked() {
         return numberOfSatelliteIsBeingTracked;
     }
 
-    public void setNumberOfSateliteIsBeingTracked(String numberOfSateliteIsBeingTracked) {
-        this.numberOfSatelliteIsBeingTracked = numberOfSateliteIsBeingTracked;
-    }
+
 
     public String getPDOP() {
         return PDOP;
     }
 
-    public void setPDOP(String PDOP) {
-        this.PDOP = PDOP;
-    }
+
 
     public String getHDOP() {
         return HDOP;

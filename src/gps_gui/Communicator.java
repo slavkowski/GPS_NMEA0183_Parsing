@@ -201,7 +201,7 @@ public class Communicator implements SerialPortEventListener{
                    int signINT = input.read();
                    if(signINT>0 && signINT<=127) {
                        numberOfSamples++;
-//                       window.txtGPSNMEA.append(Character.toString((char) signINT));
+                       window.txtGPSNMEA.append(Character.toString((char) signINT));
 
 
 
@@ -214,22 +214,15 @@ public class Communicator implements SerialPortEventListener{
 
                            if (NMEA_Utilities.checkSum(lineNMEA)) {
                                GeoData gd = new GeoData();
-//                               System.out.println(lineNMEA);
-//                               window.txtGPSNMEA.append(lineNMEA+"\n");
                                switch (lineNMEA.substring(3, 6)) {
                                    case "GGA":
                                        gd.GGA(lineNMEA);
-//                                       window.jTextField1(Integer.toString(numberOfSamples));
-
-//                                       window.jTextField1.setText(Integer.toString(numberOfSamples));
-                                       window.txtGPSNMEA.append(Integer.toString(numberOfSamples)+"\n");
+                                       window.jTextArea4.setText(gd.getTime().substring(0, 2)+":"+gd.getTime().substring(2, 4)+":"+gd.getTime().substring(4, 6));
+                                       window.jTextArea2.setText(gd.getLon()+""+gd.getAxisLon());
+                                       window.jTextArea5.setText(gd.getLat()+""+gd.getAxisLat());
                                        break;
                                    case "GSA":
                                        gd.GSA(lineNMEA);
-//                                       window.jTextField1.setText(gd.getPDOP());
-//                                       window.jTextField1.setText(Integer.toString(numberOfSamples));
-//                                       System.out.println(numberOfSamples);
-
                                        break;
 //                    case "GSV":
 //                        ParseGSV(line);
@@ -251,6 +244,7 @@ public class Communicator implements SerialPortEventListener{
                     logText = "Failed to read data1. (" + ex.toString() + ")";
                     window.txtLog.setForeground(Color.red);
                     window.txtLog.append(logText + "\n");
+                    disconnect();
                 }
 
             }
@@ -259,6 +253,7 @@ public class Communicator implements SerialPortEventListener{
                 logText = "Failed to read data2. (" + e.toString() + ")";
                 window.txtLog.setForeground(Color.red);
                 window.txtLog.append(logText + "\n");
+                disconnect();
             }
         }
     }
