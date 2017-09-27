@@ -15,6 +15,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.TooManyListenersException;
@@ -55,6 +56,12 @@ public class Communicator implements SerialPortEventListener{
     GUI window = null;
     StringBuilder sb;
     String lineNMEA;
+    private int numberOfsentencesGSV;
+    private int sentenceGSV;
+    private ArrayList<String[]> satellitesInViewAlmanach;
+    private boolean newSentenceFlag = false;
+
+
     
      public Communicator(GUI window)
     {
@@ -200,7 +207,7 @@ public class Communicator implements SerialPortEventListener{
                 {
                    int signINT = input.read();
                    if(signINT>0 && signINT<=127) {
-                       numberOfSamples++;
+                       
                        window.txtGPSNMEA.append(Character.toString((char) signINT));
 
 
@@ -213,19 +220,48 @@ public class Communicator implements SerialPortEventListener{
 
 
                            if (NMEA_Utilities.checkSum(lineNMEA)) {
+                               numberOfSamples++;
+                               window.jTextArea9.setText(Integer.toString(numberOfSamples));
                                GeoData gd = new GeoData();
-                               switch (lineNMEA.substring(3, 6)) {
+                               switch (lineNMEA.substring(3, 6))
+                               {
                                    case "GGA":
                                        gd.GGA(lineNMEA);
                                        window.jTextArea4.setText(gd.getTime().substring(0, 2)+":"+gd.getTime().substring(2, 4)+":"+gd.getTime().substring(4, 6));
                                        window.jTextArea2.setText(gd.getLon()+""+gd.getAxisLon());
                                        window.jTextArea5.setText(gd.getLat()+""+gd.getAxisLat());
+                                       window.jTextArea8.setText(gd.getAltitude()+gd.getAltitudeUnits());
+                                       window.jTextArea7.setText(gd.getGeoid()+gd.getGeoidUnits());
+                                       window.jTextArea3.setText(gd.getHDOP());
+                                       window.jTextArea11.setText(gd.getNumberOfSateliteIsBeingTracked());
+                                       window.jTextArea10.setText(gd.getFixQuality());
                                        break;
                                    case "GSA":
                                        gd.GSA(lineNMEA);
+                                       window.jTextArea1.setText(gd.getPDOP());
+                                       window.jTextArea3.setText(gd.getHDOP());
+                                       window.jTextArea6.setText(gd.getVDOP());
                                        break;
-//                    case "GSV":
-//                        ParseGSV(line);
+                                   case "GSV":
+                                       gd.GSV(lineNMEA);
+                                       numberOfsentencesGSV=Integer.parseInt(gd.getNumberOfSentencesGSV());
+                                       sentenceGSV=Integer.parseInt(gd.getSentenceOfGSV());
+
+//                                       if (sentenceGSV==1){
+//                                           satellitesInViewAlmanach = new ArrayList<>();
+//                                           newSentenceFlag = true;
+//                                       }
+//
+//                                       if (newSentenceFlag){
+//                                           satellitesInViewAlmanach.addAll(gd.getSatellieInformation());
+//                                       }
+//                                       if(sentenceGSV==numberOfsentencesGSV && newSentenceFlag){
+//                                           String snr = satellitesInViewAlmanach.get(0)[3];
+//                                           System.out.println(snr);
+//
+//                                       }
+                                       break;
+
 //                    case "RMC":
 //                        ParseRMC(line);
 //                    case "VTG":

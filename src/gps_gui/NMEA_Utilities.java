@@ -27,7 +27,8 @@ public class NMEA_Utilities {
      public static ArrayList splitRecord(String record){
         ArrayList<String> arrayWithSplitedDataFields = new ArrayList<>();
         StringBuilder sB = new StringBuilder("");
-         for (int i = 0; i < record.length(); i++) {
+        
+         for (int i = 0; i < record.length()-3; i++) {
              if(record.charAt(i)==','){
                  if(sB.length()>0){
                      arrayWithSplitedDataFields.add(sB.toString());
