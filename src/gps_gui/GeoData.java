@@ -18,9 +18,13 @@ public class GeoData {
     private String altitudeUnits;
     private String geoid;
     private String geoidUnits;
-    private ArrayList<String[]> satelliteInformation;
     private String numberOfSentencesGSV;
     private String sentenceOfGSV;
+    private String[] satelliteOneAlmanac;
+    private String[] satelliteTwoAlmanac;
+    private String[] satelliteThreeAlmanac;
+    private String[] satelliteFourAlmanac;
+    private ArrayList<String[]> satellitesAlmanac = new ArrayList<>();
 
 
 
@@ -32,11 +36,16 @@ public class GeoData {
         ArrayList<String> arrayWithDataFields = NMEA_Utilities.splitRecord(line);
         numberOfSentencesGSV = arrayWithDataFields.get(1);
         sentenceOfGSV = arrayWithDataFields.get(2);
-        for (int i = 0; i < 4 ; i++) {
-            String[] oneSatelliteInfo = {arrayWithDataFields.get(4+i*4),arrayWithDataFields.get(4+1+i*4),arrayWithDataFields.get(4+2+i*4),arrayWithDataFields.get(4+3+i*4)};
-            System.out.println(oneSatelliteInfo[0] + " " + oneSatelliteInfo[1] + " " + oneSatelliteInfo[2] + " " +oneSatelliteInfo[3]);
-            satelliteInformation.add(i,oneSatelliteInfo);
-        }
+
+        satelliteOneAlmanac = new String[]{arrayWithDataFields.get(4), arrayWithDataFields.get(5), arrayWithDataFields.get(6), arrayWithDataFields.get(7)};
+        satelliteTwoAlmanac = new String[]{arrayWithDataFields.get(8), arrayWithDataFields.get(9), arrayWithDataFields.get(10), arrayWithDataFields.get(11)};
+        satelliteThreeAlmanac = new String[]{arrayWithDataFields.get(12), arrayWithDataFields.get(13), arrayWithDataFields.get(14), arrayWithDataFields.get(15)};
+        satelliteFourAlmanac = new String[]{arrayWithDataFields.get(16), arrayWithDataFields.get(17), arrayWithDataFields.get(18), arrayWithDataFields.get(19)};
+
+        satellitesAlmanac.add(satelliteOneAlmanac);
+        satellitesAlmanac.add(satelliteTwoAlmanac);
+        satellitesAlmanac.add(satelliteThreeAlmanac);
+        satellitesAlmanac.add(satelliteFourAlmanac);
     }
 
 
@@ -133,15 +142,15 @@ public class GeoData {
         return geoid;
     }
 
-    public ArrayList<String[]> getSatellieInformation() {
-        return satelliteInformation;
-    }
-
     public String getNumberOfSentencesGSV() {
         return numberOfSentencesGSV;
     }
 
     public String getSentenceOfGSV() {
         return sentenceOfGSV;
+    }
+
+    public ArrayList<String[]> getSatellitesAlmanac() {
+        return satellitesAlmanac;
     }
 }

@@ -19,10 +19,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.TooManyListenersException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -58,7 +54,7 @@ public class Communicator implements SerialPortEventListener{
     String lineNMEA;
     private int numberOfsentencesGSV;
     private int sentenceGSV;
-    private ArrayList<String[]> satellitesInViewAlmanach;
+    private ArrayList<String[]> satellitesInViewAlmanac;
     private boolean newSentenceFlag = false;
 
 
@@ -247,19 +243,21 @@ public class Communicator implements SerialPortEventListener{
                                        numberOfsentencesGSV=Integer.parseInt(gd.getNumberOfSentencesGSV());
                                        sentenceGSV=Integer.parseInt(gd.getSentenceOfGSV());
 
-//                                       if (sentenceGSV==1){
-//                                           satellitesInViewAlmanach = new ArrayList<>();
-//                                           newSentenceFlag = true;
-//                                       }
-//
-//                                       if (newSentenceFlag){
-//                                           satellitesInViewAlmanach.addAll(gd.getSatellieInformation());
-//                                       }
-//                                       if(sentenceGSV==numberOfsentencesGSV && newSentenceFlag){
-//                                           String snr = satellitesInViewAlmanach.get(0)[3];
-//                                           System.out.println(snr);
-//
-//                                       }
+                                       if (sentenceGSV==1){
+                                           satellitesInViewAlmanac = new ArrayList<>();
+                                           newSentenceFlag = true;
+                                       }
+
+                                       if (newSentenceFlag){
+                                           satellitesInViewAlmanac.addAll(gd.getSatellitesAlmanac());
+                                       }
+                                       if(sentenceGSV==numberOfsentencesGSV && newSentenceFlag){
+                                       
+                                           window.jProgressBar1.setValue(Integer.parseInt(satellitesInViewAlmanac.get(0)[3]));
+                                           window.jTextArea13.setText(satellitesInViewAlmanac.get(0)[0]);
+                                          
+
+                                       }
                                        break;
 
 //                    case "RMC":
